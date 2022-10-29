@@ -27,6 +27,7 @@
           <span class="svg-container">
             <svg-icon icon-class="password" />
           </span>
+          <!--   @keyup.native="checkCapslock" -->
           <el-input
             :key="passwordType"
             ref="password"
@@ -36,7 +37,6 @@
             name="password"
             tabindex="2"
             autocomplete="on"
-            @keyup.native="checkCapslock"
             @blur="capsTooltip = false"
             @keyup.enter.native="handleLogin"
           />
@@ -67,8 +67,8 @@ export default {
       },
       // 表单验证规则
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        username: [{ required: true, trigger: 'blur', message:'请输入用户名' }],
+        password: [{ required: true, trigger: 'blur', message:'请输入密码' }]
       },
       passwordType: 'password',
       capsTooltip: false,
@@ -90,12 +90,12 @@ export default {
       immediate: true
     }
   },
-  created() {
-    // window.addEventListener('storage', this.afterQRScan)
-  },
+
   mounted() {
+    // 如果用户名为空，则焦点聚焦到用户名输入框
     if (this.loginForm.username === '') {
       this.$refs.username.focus()
+       // 如果密码为空，则焦点聚焦到密码输入框
     } else if (this.loginForm.password === '') {
       this.$refs.password.focus()
     }
@@ -104,10 +104,11 @@ export default {
     // window.removeEventListener('storage', this.afterQRScan)
   },
   methods: {
-    checkCapslock(e) {
-      const { key } = e
-      this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
-    },
+    // 提示密码键盘输入大写字符
+    // checkCapslock(e) {
+    //   const { key } = e
+    //   this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
+    // },
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -135,7 +136,7 @@ export default {
               this.loading = false
             })
         } else {
-          console.log('error submit!!')
+          // console.log('error submit!!')
           return false
         }
       })
