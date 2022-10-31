@@ -37,11 +37,11 @@ const actions = {
       // 传递用户名和密码参数
       login({ username: username.trim(), password: password }).then(response => {
         // 解构出后端返回的数据
-        const { data } = response
+        const { token } = response
         // 将返回的token信息保存到store
-        commit('SET_TOKEN', data.token)
+        commit('SET_TOKEN', token)
         // 设置token
-        setToken(data.token)
+        setToken(token)
         resolve()
       }).catch(error => {
         reject(error)
