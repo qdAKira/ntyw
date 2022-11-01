@@ -6,7 +6,7 @@ import http from "@/utils/request";
  */
 export async function login(data) {
   // return await http.login("/api/user/login", data);
-  return await http.login("/api/login", data);
+  return await http.login("api/login", data);
 }
 /**
  * 获取用户信息和权限信息

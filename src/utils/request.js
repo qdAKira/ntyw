@@ -10,6 +10,7 @@ const service = axios.create({
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 15000, // 请求超时时间
 });
+
 // 请求前拦截
 service.interceptors.request.use(
   (config) => {
@@ -32,6 +33,7 @@ service.interceptors.response.use(
   (response) => {
     // 获取后端返回的数据
     const res = response.data;
+    console.log(res);
     // 如果后端返回的状态码不是200，则提示错误信息
     if (res.code !== 200) {
       Message({
@@ -82,6 +84,7 @@ const http = {
       ],
       headers: {
         "Content-Type": "application/json",
+        // "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8;",
       },
     });
   },
@@ -94,6 +97,7 @@ const http = {
       ],
       headers: {
         "Content-Type": "application/json",
+        // "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8;",
       },
     });
   },
@@ -167,6 +171,7 @@ const http = {
     return service.post(url, params, {
       headers: {
         "Content-Type": "multipart/form-data",
+        // "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8;",
       },
     });
   },
@@ -175,11 +180,14 @@ const http = {
     return service.post(url, params, {
       transformRequest: [
         (params) => {
-          return qs.stringify(params);
+          // return qs.stringify(params);
+          return params;
+
         },
       ],
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        // "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json;charset=UTF-8",
       },
     });
   },
